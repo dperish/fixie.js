@@ -1,0 +1,15 @@
+body {
+  /* Optional */
+  background-color: #333;
+  color: #ffc;
+}
+
+pre,code {
+  /* Required */
+  font-size: 1em;
+
+  /* Optional */
+  color: #0f0;
+  background-color: #000;
+  padding: 6px;
+}
