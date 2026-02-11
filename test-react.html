@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fixie.js React Component Test</title>
+    <link rel="stylesheet" type="text/css" href="fixie.css" />
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useCallback } = React;
+
+        // Inline the Fixie component for testing
+        const Fixie = ({ columns, children, className = '', style = {}, ...otherProps }) => {
+          const preRef = useRef(null);
+          const resizeTimeoutRef = useRef(null);
+
+          const fixieMeasure = useCallback(() => {
+            if (!preRef.current) return;
+
+            const pre = preRef.current;
+            const ruler = document.createElement('code');
+            ruler.id = 'fixieRuler';
+            
+            document.body.insertBefore(ruler, pre);
+            
+            ruler.innerText = new Array(columns + 1).join('F');
+            ruler.style.fontSize = pre.style.fontSize || '1em';
+            pre.setAttribute('data-fixieWidth', ruler.offsetWidth);
+            
+            ruler.parentNode.removeChild(ruler);
+          }, [columns]);
+
+          const fixieResize = useCallback(() => {
+            if (!preRef.current) return;
+
+            const pre = preRef.current;
+            const offset = pre.offsetWidth;
+            const fixieWidth = parseFloat(pre.getAttribute('data-fixieWidth')) * 1.01;
+            
+            if (fixieWidth) {
+              pre.style.fontSize = (offset / fixieWidth) + 'em';
+            }
+          }, []);
+
+          useEffect(() => {
+            // Initialize
+            fixieMeasure();
+            fixieResize();
+
+            // Set up resize handler with debouncing
+            const handleResize = () => {
+              if (resizeTimeoutRef.current) {
+                clearTimeout(resizeTimeoutRef.current);
+              }
+              resizeTimeoutRef.current = setTimeout(() => {
+                fixieResize();
+              }, 100);
+            };
+
+            window.addEventListener('resize', handleResize);
+
+            // Cleanup
+            return () => {
+              window.removeEventListener('resize', handleResize);
+              if (resizeTimeoutRef.current) {
+                clearTimeout(resizeTimeoutRef.current);
+              }
+            };
+          }, [fixieMeasure, fixieResize]);
+
+          const combinedClassName = `fixie_${columns} ${className}`.trim();
+          const combinedStyle = {
+            fontSize: '1em',
+            ...style
+          };
+
+          return (
+            <pre
+              ref={preRef}
+              className={combinedClassName}
+              style={combinedStyle}
+              {...otherProps}
+            >
+              {children}
+            </pre>
+          );
+        };
+
+        // Test App
+        const App = () => {
+          return (
+            <div>
+              <h1 style={{ color: '#ffc', backgroundColor: '#333', padding: '10px' }}>
+                Fixie.js React Component Test
+              </h1>
+              
+              <Fixie columns={70}>
+{`   _______ _______ _______ _______ _______ _______ _______ _______
+  |\\     /|\\     /|\\     /|\\     /|\\     /|\\     /|\\     /|\\     /|
+  | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ |
+  | |   | | |   | | |   | | |   | | |   | | |   | | |   | | |   | |
+  | | f | | | i | | | x | | | i | | | e | | | . | | | j | | | s | |
+  | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ | +---+ |
+  |/_____\\|/_____\\|/_____\\|/_____\\|/_____\\|/_____\\|/_____\\|/_____\\|
+`}
+              </Fixie>
+
+              <Fixie columns={35}>
+{`fixie.js: Like FitText or BigText,
+  but for fixed-width fonts.`}
+              </Fixie>
+
+              <Fixie columns={80}>
+                {'Test with 80 columns - This should scale to fit exactly 80 characters per line'}
+              </Fixie>
+            </div>
+          );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

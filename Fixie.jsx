@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 
 /**
  * Fixie React Component
@@ -12,10 +12,9 @@ import React, { useEffect, useRef } from 'react';
  */
 const Fixie = ({ columns, children, className = '', style = {}, ...otherProps }) => {
   const preRef = useRef(null);
-  const rulerRef = useRef(null);
   const resizeTimeoutRef = useRef(null);
 
-  const fixieMeasure = () => {
+  const fixieMeasure = useCallback(() => {
     if (!preRef.current) return;
 
     const pre = preRef.current;
@@ -24,14 +23,14 @@ const Fixie = ({ columns, children, className = '', style = {}, ...otherProps })
     
     document.body.insertBefore(ruler, pre);
     
-    ruler.innerText = new Array(columns + 1).join('F').toString();
+    ruler.innerText = new Array(columns + 1).join('F');
     ruler.style.fontSize = pre.style.fontSize || '1em';
     pre.setAttribute('data-fixieWidth', ruler.offsetWidth);
     
     ruler.parentNode.removeChild(ruler);
-  };
+  }, [columns]);
 
-  const fixieResize = () => {
+  const fixieResize = useCallback(() => {
     if (!preRef.current) return;
 
     const pre = preRef.current;
@@ -41,7 +40,7 @@ const Fixie = ({ columns, children, className = '', style = {}, ...otherProps })
     if (fixieWidth) {
       pre.style.fontSize = (offset / fixieWidth) + 'em';
     }
-  };
+  }, []);
 
   useEffect(() => {
     // Initialize
@@ -67,7 +66,7 @@ const Fixie = ({ columns, children, className = '', style = {}, ...otherProps })
         clearTimeout(resizeTimeoutRef.current);
       }
     };
-  }, [columns, children]);
+  }, [fixieMeasure, fixieResize]);
 
   const combinedClassName = `fixie_${columns} ${className}`.trim();
   const combinedStyle = {
