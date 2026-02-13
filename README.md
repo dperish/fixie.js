@@ -1,6 +1,8 @@
 # fixie.js
 *Like [FitText](https://github.com/davatron5000/FitText.js) or [BigText](https://github.com/zachleat/BigText), but for fixed-width fonts.*
 
+**[📖 View Live Demo & Documentation](https://dperish.github.io/fixie.js/)**
+
 ## Usage
 
 ### Vanilla JavaScript
