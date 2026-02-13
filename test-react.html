@@ -26,7 +26,7 @@
             const ruler = document.createElement('code');
             ruler.id = 'fixieRuler';
             
-            document.body.insertBefore(ruler, pre);
+            (pre.parentNode || document.body).insertBefore(ruler, pre);
             
             ruler.innerText = new Array(columns + 1).join('F');
             ruler.style.fontSize = pre.style.fontSize || '1em';
