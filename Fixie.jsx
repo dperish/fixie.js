@@ -18,16 +18,21 @@ const Fixie = ({ columns, children, className = '', style = {}, ...otherProps })
     if (!preRef.current) return;
 
     const pre = preRef.current;
+    const parent = pre.parentNode;
+    if (!parent) return;
+
     const ruler = document.createElement('code');
     ruler.id = 'fixieRuler';
-    
-    document.body.insertBefore(ruler, pre);
-    
+
+    parent.insertBefore(ruler, pre);
+
     ruler.innerText = new Array(columns + 1).join('F');
     ruler.style.fontSize = pre.style.fontSize || '1em';
     pre.setAttribute('data-fixieWidth', ruler.offsetWidth);
-    
-    ruler.parentNode.removeChild(ruler);
+
+    if (ruler.parentNode) {
+      ruler.parentNode.removeChild(ruler);
+    }
   }, [columns]);
 
   const fixieResize = useCallback(() => {
