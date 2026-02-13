@@ -24,7 +24,7 @@ Use the React component by importing `Fixie` and passing the number of columns a
 
 ```jsx
 import React from 'react';
-import Fixie from './Fixie';
+import Fixie from './Fixie.jsx';
 import './fixie.css';
 
 function App() {
