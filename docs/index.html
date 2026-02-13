@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fixie.js - React Component for Fixed-Width Font Scaling</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="fixie.css" />
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>fixie.js</h1>
+            <p class="tagline">Like FitText or BigText, but for fixed-width fonts</p>
+            <div class="links">
+                <a href="https://github.com/dperish/fixie.js" class="btn">View on GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <h2>About</h2>
+            <p>
+                <strong>fixie.js</strong> is a React component and vanilla JavaScript library that automatically 
+                scales fixed-width font content to fit a specified number of columns. Perfect for ASCII art, 
+                code snippets, terminal output, and any monospace text that needs to fit precisely within 
+                a given width.
+            </p>
+        </section>
+
+        <section class="demo">
+            <h2>Live Demo: React Component</h2>
+            <p>
+                Below are three examples of the Fixie React component demonstrating different column widths: 
+                <strong>20 columns</strong>, <strong>40 columns</strong>, and <strong>80 columns</strong>. 
+                Each component automatically scales the text to fit exactly the specified number of columns, 
+                and responds dynamically to window resizing.
+            </p>
+            
+            <div id="demo-content">
+                <div class="demo-section">
+                    <h3>20 Columns</h3>
+                    <p class="demo-description">Perfect for narrow displays or compact layouts</p>
+                    <div class="demo-container">
+                        <pre class="fixie_20">╔══════════════════╗
+║  fixie.js Demo  ║
+║   20 Columns    ║
+╚══════════════════╝</pre>
+                    </div>
+                    <div class="demo-container">
+                        <pre class="fixie_20">   ______________
+  /             /|
+ /  fixie.js  / |
+/____________/  |
+|            | /
+|____________|/</pre>
+                    </div>
+                </div>
+
+                <div class="demo-section">
+                    <h3>40 Columns</h3>
+                    <p class="demo-description">Ideal for medium-width content and balanced layouts</p>
+                    <div class="demo-container">
+                        <pre class="fixie_40">┌──────────────────────────────────────┐
+│        fixie.js - 40 Columns         │
+│  Scales to fit exactly 40 chars/line │
+└──────────────────────────────────────┘</pre>
+                    </div>
+                    <div class="demo-container">
+                        <pre class="fixie_40">     __  _      _        _     
+    / _|(_)    (_)      (_)    
+   | |_  _ __  ___  ___  _ ___ 
+   |  _|| |\ \/ | |/ _ \| / __|
+   | |  | | >  <| |  __/| \__ \
+   |_|  |_|/_/\_|_|\___||_|___/</pre>
+                    </div>
+                </div>
+
+                <div class="demo-section">
+                    <h3>80 Columns</h3>
+                    <p class="demo-description">Classic terminal width - perfect for code and detailed ASCII art</p>
+                    <div class="demo-container">
+                        <pre class="fixie_80">╔══════════════════════════════════════════════════════════════════════════════╗
+║                        fixie.js - React Component                            ║
+║                                                                              ║
+║           Automatically scales fixed-width fonts to fit 80 columns          ║
+╚══════════════════════════════════════════════════════════════════════════════╝</pre>
+                    </div>
+                    <div class="demo-container">
+                        <pre class="fixie_80"> _____ _      _        _                                                        
+|  ___(_)_  _(_) ___  (_)___                                                    
+| |_  | \ \/ | |/ _ \ | / __|                                                   
+|  _| | |>  <| |  __/_| \__ \                                                   
+|_|   |_/_/\_|_|\___(_| |___/  Like FitText or BigText, but for monospace fonts
+                     _/ |                                                       
+                    |__/                                                        </pre>
+                    </div>
+                </div>
+
+                <div class="demo-section">
+                    <h3>Dynamic Content Example</h3>
+                    <p class="demo-description">All examples respond to window resizing</p>
+                    <div class="demo-container">
+                        <pre class="fixie_80">const fixie = {
+  name: 'fixie.js',
+  description: 'Automatic scaling for fixed-width fonts',
+  features: [
+    'React component and vanilla JS',
+    'Responsive to window resizing',
+    'Perfect for ASCII art and code',
+    'Easy to use with minimal setup'
+  ],
+  columns: [20, 40, 80],
+  license: 'MIT'
+};
+
+console.log('Try resizing your browser window!');</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="usage">
+            <h2>Installation & Usage</h2>
+            
+            <h3>React Component</h3>
+            <p>Import the Fixie component and use it with your desired column width:</p>
+            <pre class="code-block"><code>import React from 'react';
+import Fixie from './Fixie.jsx';
+import './fixie.css';
+
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;Fixie columns={80}&gt;
+        Your fixed-width content here...
+      &lt;/Fixie&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;</code></pre>
+
+            <h3>Props</h3>
+            <ul>
+                <li><code>columns</code> (number, required): Number of columns to fit the content to</li>
+                <li><code>children</code> (ReactNode, required): The content to display</li>
+                <li><code>className</code> (string, optional): Additional CSS classes</li>
+                <li><code>style</code> (object, optional): Additional inline styles</li>
+            </ul>
+
+            <h3>Vanilla JavaScript</h3>
+            <p>For non-React projects, include the script and add the appropriate class to your elements:</p>
+            <pre class="code-block"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;link rel="stylesheet" type="text/css" href="fixie.css" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;pre class="fixie_80"&gt;Your content here...&lt;/pre&gt;
+    &lt;script type="text/javascript" src="fixie.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </section>
+
+        <section class="features">
+            <h2>Features</h2>
+            <ul>
+                <li>✅ Automatic font scaling based on column width</li>
+                <li>✅ Responsive - adapts to window resizing</li>
+                <li>✅ Works with React and vanilla JavaScript</li>
+                <li>✅ Perfect for ASCII art, code snippets, and terminal output</li>
+                <li>✅ Lightweight and easy to use</li>
+                <li>✅ MIT licensed</li>
+            </ul>
+        </section>
+
+        <section class="license">
+            <h2>License</h2>
+            <p>fixie.js is provided under the MIT License. See the <a href="https://github.com/dperish/fixie.js/blob/main/LICENSE">LICENSE</a> file for details.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 fixie.js | <a href="https://github.com/dperish/fixie.js">GitHub</a></p>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="fixie-init.js"></script>
+</body>
+</html>
