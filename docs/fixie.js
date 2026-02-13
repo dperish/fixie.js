@@ -23,7 +23,7 @@ function fixieResize() {
           document.body.insertBefore(ruler, fixies[i]);
 
           var columns = parseInt(fixies[i].className.split("_")[1]);
-          ruler.innerText = new Array(columns + 1).join("F").toString();
+          ruler.innerText = "F".repeat(columns);
           ruler.style.fontSize = fixies[i].style.fontSize;
           fixies[i].setAttribute("data-fixieWidth", ruler.offsetWidth);
 

@@ -21,7 +21,7 @@ function fixieMeasure() {
         ruler.style.position = "absolute";
         ruler.style.visibility = "hidden";
         ruler.style.fontSize = "1em";
-        ruler.innerText = new Array(columns + 1).join("F");
+        ruler.innerText = "F".repeat(columns);
         
         document.body.appendChild(ruler);
         fixies[i].setAttribute("data-fixieWidth", ruler.offsetWidth);
