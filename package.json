@@ -1,0 +1,33 @@
+{
+  "name": "fixie.js",
+  "version": "1.0.0",
+  "description": "Like FitText or BigText, but for fixed-width fonts",
+  "main": "fixie.js",
+  "module": "Fixie.jsx",
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dperish/fixie.js.git"
+  },
+  "keywords": [
+    "fixie",
+    "fixed-width",
+    "font",
+    "scaling",
+    "react"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dperish/fixie.js/issues"
+  },
+  "homepage": "https://github.com/dperish/fixie.js#readme",
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "react": "^18.2.0"
+  }
+}
