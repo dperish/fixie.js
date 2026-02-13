@@ -27,7 +27,8 @@ const Fixie = ({ columns, children, className = '', style = {}, ...otherProps })
     parent.insertBefore(ruler, pre);
 
     ruler.innerText = new Array(columns + 1).join('F');
-    ruler.style.fontSize = pre.style.fontSize || '1em';
+    // Always measure at a stable base size to avoid using an already scaled font size.
+    ruler.style.fontSize = '1em';
     pre.setAttribute('data-fixieWidth', ruler.offsetWidth);
 
     if (ruler.parentNode) {
